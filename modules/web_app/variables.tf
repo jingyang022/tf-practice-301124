@@ -25,3 +25,9 @@ variable "public_subnet" {
   type        = bool
   default     = true
 }
+
+variable "alb_listener_arn" {
+  description = "ALB listener Arn"
+  type = string
+  default = ""
+}
