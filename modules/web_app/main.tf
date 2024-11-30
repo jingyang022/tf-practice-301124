@@ -61,9 +61,16 @@ resource "aws_lb_target_group" "web_app" {
 }
 
 resource "aws_lb_target_group_attachment" "web_app" {
-    target_group_arn = aws_lb_target_group.web_app.arn
-    target_id = aws_instance.web_app.id
-    port = 80
+    #target_group_arn = aws_lb_target_group.web_app.arn
+    #target_id = aws_instance.web_app[0]
+    for_each = {
+    for k, v in aws_instance.web_app :
+    k => v
+  }
+
+  target_group_arn = aws_lb_target_group.web_app.arn
+  target_id        = each.value.id
+  port = 80
 }
 
 resource "aws_lb_listener_rule" "web_app" {
@@ -77,7 +84,7 @@ resource "aws_lb_listener_rule" "web_app" {
     
     condition {
         path_pattern {
-            # values = ["..."]
+            values = ["/${var.name_prefix}"]
             }
         }
 }
