@@ -1,1 +1,3 @@
-# tf-practice-301124
+# For 30 Nov coaching session
+
+Refer to the activity sheet for details.
